@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script>
+    let users = localStorage.getItem('users');
+    if (users===null) {
+      users=[{username:"cogustjr", password:'1q2w3e4r'}];
+      localStorage.setItem('users',JSON.stringify(users));
+    } else {
+      users=JSON.parse(users);
+    }
+
+    let username = sessionStorage.getItem('username');
+    if(username!==null) {
+      location.href="index1.html";
+    }
+  </script>
+</head>
+
+<body>
+  <h1>로그인</h1>
+  <input type="text" id="username">
+  <input type="password" id="userpassword">
+  <button onclick="logIn()">로그인</button>
+  <script>
+    const logIn = function () {
+    const $username = document.getElementById('username').value;
+    const $password = document.getElementById('userpassword').value;
+   
+    // users = localStorage.setItem('users')
+
+    for (const user of users) {
+      console.log($password,user.password)
+      if ($username === user.username && $password === user.password) {
+        sessionStorage.setItem('username', $username);
+        location.href="index1.html"
+        return;
+      }
+    }
+    alert("로그인 실패")
+  }
+  </script>
+</body>
+</html>
